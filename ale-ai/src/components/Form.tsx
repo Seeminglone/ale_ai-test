@@ -20,7 +20,7 @@ export default function AssignmentForm() {
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const { data: levels = [], isError } = useQuery({
+  const { data: levels = [] } = useQuery({
     queryKey: ["candidateLevels"],
     queryFn: fetchCandidateLevels,
     staleTime: 1000 * 60 * 10, 
