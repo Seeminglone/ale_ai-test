@@ -49,8 +49,17 @@ export default function AssignmentForm() {
     try {
       await submitAssignment(formData);
       router.push("/thank-you");
-    } catch (err: any) {
-      setErrors(err.errors || ["Submission failed."]);
+    } catch (err: unknown) {
+      if (
+        typeof err === "object" &&
+        err !== null &&
+        "errors" in err &&
+        Array.isArray((err as { errors?: string[] }).errors)
+      ) {
+        setErrors((err as { errors: string[] }).errors);
+      } else {
+        setErrors(["Submission failed."]);
+      }
     } finally {
       setLoading(false);
     }
